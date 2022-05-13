@@ -18,7 +18,7 @@ export const genStudents = async () => {
     const fullName = field[header.indexOf("fullName")];
     const phone = field[header.indexOf("phone")];
     const birthday = field[header.indexOf("birthday")];
-    const className = field[5];
+    const className = field[4];
     const item = {
       studentCode,
       fullName,
