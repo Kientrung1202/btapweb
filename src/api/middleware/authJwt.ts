@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import Users from "../../models/user";
+import Students from "../../models/students";
 import { ROLE } from "../../utils/interface";
 import CommonError from "../client/common/error";
 
@@ -20,7 +20,7 @@ const isUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     verifyToken(req);
     console.log(req.body.user.userId, "userID day");
-    const admin = await Users.findByPk(req.body.user.userId);
+    const admin = await Students.findByPk(req.body.user.userId);
     const role = admin?.getDataValue("role");
     if (role && role == ROLE.customer) {
       next();
@@ -35,7 +35,7 @@ const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     verifyToken(req);
     console.log(req.body.user.userId, "userID day");
-    const admin = await Users.findByPk(req.body.user.userId);
+    const admin = await Students.findByPk(req.body.user.userId);
     const role = admin?.getDataValue("role");
     if (role && role == ROLE.customer) {
       next();

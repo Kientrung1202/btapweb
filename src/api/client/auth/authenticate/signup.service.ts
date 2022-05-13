@@ -1,4 +1,4 @@
-import Users from "../../../../models/user";
+import Students from "../../../../models/students";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { badRequest, success } from "../../../../utils/response";
@@ -8,7 +8,7 @@ import "dotenv/config";
 export const createUser = async (req: Request) => {
   const hash = await bcrypt.hash(req.body.password, 10);
   const { userId, userName, fullName, phone, address } = req.body;
-  return Users.create({
+  return Students.create({
     userId,
     userName,
     password: hash,
@@ -22,7 +22,7 @@ export const createUser = async (req: Request) => {
 
 export const signIn = async (req: Request, res: Response) => {
   const { userName, password } = req.body;
-  const userInfo = await Users.findOne({
+  const userInfo = await Students.findOne({
     where: { userName },
   });
   if (!userInfo) {
@@ -44,7 +44,7 @@ export const signIn = async (req: Request, res: Response) => {
               expiresIn: "7d", // if this is number, this is second
             }
           );
-          Users.update(
+          Students.update(
             { lastLogin: new Date() },
             { where: { userId: userInfo.getDataValue("userId") } }
           )
@@ -57,7 +57,7 @@ export const signIn = async (req: Request, res: Response) => {
                 })
               );
             })
-            .catch((err) => {
+            .catch((err: any) => {
               res.json(badRequest(err));
             });
         }

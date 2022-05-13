@@ -2,22 +2,12 @@ import { db } from "../db";
 import { ROLE } from "../utils/interface";
 import Sequelize from "sequelize";
 
-const Users = db.sequelize.define(
-  "users",
+const Students = db.sequelize.define(
+  "students",
   {
-    userId: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
+    studentCode: {
+      type: Sequelize.INTEGER,
       primaryKey: true,
-    },
-    userName: {
-      type: Sequelize.STRING(40),
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: Sequelize.STRING(60),
-      allowNull: false,
     },
     fullName: {
       type: Sequelize.STRING(45),
@@ -27,24 +17,15 @@ const Users = db.sequelize.define(
       type: Sequelize.STRING(15),
       allowNull: false,
     },
+    birthday: {
+      type: Sequelize.DATEONLY,
+    },
     address: {
       type: Sequelize.STRING(45),
-      allowNull: false,
     },
-    createdAt: {
-      type: Sequelize.DATE,
+    className: {
+      type: Sequelize.STRING,
       allowNull: false,
-    },
-    lastLogin: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-    role: {
-      type: Sequelize.INTEGER,
-      defaultValue: ROLE.customer,
-      get() {
-        return this.getDataValue("role");
-      },
     },
   },
   {
@@ -53,4 +34,4 @@ const Users = db.sequelize.define(
     timestamps: false,
   }
 );
-export default Users;
+export default Students;
