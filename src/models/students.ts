@@ -1,13 +1,17 @@
 import { db } from "../db";
-import { ROLE } from "../utils/interface";
 import Sequelize from "sequelize";
 
 const Students = db.sequelize.define(
   "students",
   {
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
+    },
     studentCode: {
       type: Sequelize.INTEGER,
-      primaryKey: true,
+      unique: true,
     },
     fullName: {
       type: Sequelize.STRING(45),
@@ -15,7 +19,6 @@ const Students = db.sequelize.define(
     },
     phone: {
       type: Sequelize.STRING(15),
-      allowNull: false,
     },
     birthday: {
       type: Sequelize.DATEONLY,
